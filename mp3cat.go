@@ -13,7 +13,7 @@ import (
 	"golang.org/x/term"
 )
 
-const version = "4.3.2"
+const version = "4.3.3"
 
 var helptext = fmt.Sprintf(`
 Usage: %s [files]
