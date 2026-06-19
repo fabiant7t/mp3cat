@@ -13,7 +13,7 @@ import (
 	"golang.org/x/term"
 )
 
-const version = "4.3.4"
+const version = "4.3.5"
 
 var helptext = fmt.Sprintf(`
 Usage: %s [files]
@@ -73,7 +73,8 @@ func main() {
 					files = append(files, path)
 				}
 				return nil
-			})
+			},
+		)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Error:", err)
 			os.Exit(1)
@@ -119,7 +120,8 @@ func main() {
 		tagpath,
 		files,
 		parser.Found("force"),
-		parser.Found("quiet"))
+		parser.Found("quiet"),
+	)
 }
 
 // Check that all the files in the list exist.
@@ -260,7 +262,6 @@ func merge(outpath, tagpath string, inpaths []string, force, quiet bool) {
 
 // Prepend an Xing VBR header to the specified MP3 file.
 func addXingHeader(filepath string, totalFrames, totalBytes uint32) {
-
 	outputFile, err := os.Create(filepath + ".mp3cat.tmp")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
@@ -305,7 +306,6 @@ func addXingHeader(filepath string, totalFrames, totalBytes uint32) {
 
 // Prepend an ID3v2 tag to the MP3 file at mp3Path, copying from tagPath.
 func addID3v2Tag(mp3Path, tagPath string) {
-
 	tagFile, err := os.Open(tagPath)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
